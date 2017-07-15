@@ -16,19 +16,28 @@ import {MdCardModule} from '@angular/material';
 import {MdButtonModule} from '@angular/material';
 import {MdInputModule} from '@angular/material';
 import {MdToolbarModule} from '@angular/material';
+import {MdSelectModule} from '@angular/material';
+
 import { SignupComponent } from './signup/signup.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { StudentCVComponent } from './student-CV/student-cv.component';
+import { CompanyComponent } from './company-signup/company.component';
+import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+
 
 
 const appRoutes : Routes = [
   {path : '', component: LoginComponent},
   {path : 'app-login', component : LoginComponent },
   {path : 'app-signup', component : SignupComponent},
-  {path : 'app-dashboard',component : DashboardComponent}
+  {path : 'app-dashboard',component : DashboardComponent},
+  {path : 'app-student-cv' , component : StudentCVComponent},
+  {path : 'app-company'    , component : CompanyComponent},
+  {path : 'app-company-dashboard'    , component : CompanyDashboardComponent}
   
 ]
 
@@ -38,7 +47,10 @@ const appRoutes : Routes = [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    StudentCVComponent,
+    CompanyComponent,
+    CompanyDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +67,9 @@ const appRoutes : Routes = [
     MdButtonModule,
     MdInputModule,
     MdCardModule,
-    MdToolbarModule
+	MdToolbarModule,
+	MdSelectModule
+	
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -25,15 +25,32 @@ b;
     })
   }
 
-  signupData(value){
-	  console.log('value.username ',value.name)
+  signupData(){
+	//   console.log('value.username ',value.name)
     console.log(this.signupForm.value)
-    this.b = this.authService.emailSignUp(value.email,value.password,value.name)
+    this.b = this.authService.emailSignUp(this.signupForm.value)
     console.log(this.b);
-    console.log(value.email);
-	console.log(value.password);
+    // console.log(value.email);
+	// console.log(value.password);
 	
    
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

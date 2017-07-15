@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import {AuthService } from ".././auth-service.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from "@angular/router";
 
 
 
@@ -18,14 +19,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 loginForm : FormGroup;
 loginAuth;
+firebaseToken;
 c;
 
-  constructor(private authService: AuthService,private fb : FormBuilder) { }
+  constructor(private authService: AuthService,private fb : FormBuilder,private router : Router) {
+	// this.authService.demo()
+	
+
+   }
 
   ngOnInit() {
 	  this.loginForm = this.fb.group({
-		  'userEmail' : "",
-		   'userPassword' : ""
+		  'userEmail' : "a@gmail.com",
+		   'userPassword' : "000000"
 	  });
 		//   console.log(this.loginForm.value)
   }
@@ -37,7 +43,5 @@ c;
 
    
   }
-
-  
 
 }

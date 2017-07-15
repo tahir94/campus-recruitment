@@ -1,0 +1,36 @@
+ <md-toolbar style="background : #607D8B">
+   <span  style="color : white; text-align : center ">Campus Recruitment</span>
+     <span class="example-fill-remaining-space"></span>
+<!-- <button md-raised-button color="primary" routerLink="/app-signup">Register for Student</button> &nbsp; -->
+<!-- <button md-raised-button color="primary" routerLink="/app-company">Register for Company</button> -->
+      <button md-raised-button color="primary" routerLink="/app-login">Login</button> 
+</md-toolbar>
+
+
+<md-card style="width: 30%;  margin: 0 auto;
+    text-align: left;
+   ">
+  <form [formGroup]="CompanyForm" novalidate>
+  <div style="text-align:center" > 
+<md-input-container>
+  <input mdInput placeholder="company name" formControlName="CompanyName" >
+</md-input-container>
+</div>
+
+  <div style="text-align:center" > 
+<md-input-container>
+  <input mdInput placeholder="company email" formControlName="CompanyEmail" >
+</md-input-container>
+</div>
+
+<div style="text-align:center">
+
+<md-input-container>
+  <input mdInput placeholder="company password" formControlName="CompanyPassword" >
+</md-input-container>
+</div>
+<div style="text-align:center">
+   <button md-raised-button color="primary" (click)="signup()"  >Signup</button>
+</div>
+</form>
+</md-card> 

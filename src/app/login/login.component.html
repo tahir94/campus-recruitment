@@ -2,7 +2,8 @@
  <md-toolbar style="background : #607D8B">
    <span  style="color : white; text-align : center ">Campus Recruitment</span>
      <span class="example-fill-remaining-space"></span>
-<button md-raised-button color="primary" routerLink="/app-signup">Signup</button>
+<button md-raised-button color="primary" routerLink="/app-signup">Register for Student</button> &nbsp;
+<button md-raised-button color="primary" routerLink="/app-company">Register for Company</button>
  </md-toolbar>
 <h1 style="text-align : center;font-family : sans-serifl;color : #607D8B">LOGIN</h1>
 
@@ -16,17 +17,18 @@
   <form [formGroup]="loginForm">
   <div style="text-align:center" > 
 <md-input-container>
-  <input mdInput placeholder="user email" [formControl]="loginForm.controls['userEmail']" >
+  <input  mdInput placeholder="user email" [formControl]="loginForm.controls['userEmail']" >
 </md-input-container>
 </div>
 <div style="text-align:center">
 
 <md-input-container>
-  <input mdInput placeholder="user password" [formControl]="loginForm.controls['userPassword']">
+  <input value="000000" mdInput placeholder="user password" [formControl]="loginForm.controls['userPassword']">
 </md-input-container>
 </div>
 <div style="text-align:center">
-   <button md-raised-button color="primary" routerLink="/app-dashboard" (click)="login()">Login</button>
+   <button md-raised-button color="primary"  (click)="login()">Login</button>
 </div>
 </form>
 </md-card> 
+<!-- routerLink="/app-dashboard" -->

@@ -7,37 +7,49 @@ import * as firebase from 'firebase';
 @Injectable()
 export class AuthService {
 title : string;
-authState : any ;
+static authState : any ;
 userName;
 userId;
 userId2;
 checking;
+companyUserEmail;
+currentUser;
+companyType;
+studentTytpe;
+firebaseToken;
+v;
   constructor(private afAuth : AngularFireAuth, private db: AngularFireDatabase,private router : Router) { 
-
+     console.log('service firebaseToken',this.firebaseToken)
     // this.afAuth.authState.subscribe((auth)=>{
     //   this.authState = auth;
     //   console.log(this.authState.uid)
     // })
   }
     get authenticated(): boolean {
-    return this.authState !== null;
+    return AuthService.authState !== null;
   }
     get currentUserId(): string {
-    return this.authenticated ? this.authState.uid : '';
+    return this.authenticated ? AuthService.authState.uid : '';
   }
 
-    emailSignUp(email:string, password:string,displayName) {
-		this.userName = displayName;
+    emailSignUp(studentData) {
+		// this.userName = displayName;
 	
 		console.log(this.userName)
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.afAuth.auth.createUserWithEmailAndPassword(studentData.userEmail,studentData.userPassword)
 	  .then((user) => {
-		this.authState = user;
-		console.log(this.authState)
-		this.userId = this.authState.uid;
+		
+		AuthService.authState = user;
+		console.log(AuthService.authState)
+		this.userId = AuthService.authState.uid;
 		console.log(this.userId);
-		this.db.list('/student').push({name : this.userName, email : email, password : password})
-	
+		// this.db.list('/students').push({name : this.userName, email : email, password : password})
+		studentData.type = "student";
+		console.log('stdData',studentData.type);
+		this.db.list('/students').update(AuthService.authState.uid,{name : studentData.userName, email : studentData.userEmail, password : studentData.userPassword, type : studentData.type})
+		localStorage.setItem('currentStudentUserType',studentData.type)
+		console.log(this.v);
+		this.router.navigate(['/app-dashboard'])
 		// this.updateUserData();
 	
       })
@@ -45,26 +57,55 @@ checking;
   }
 
 
-
-
-
-
-  
-
   emailLogin(email:string, password:string) {
+	//   console.log('comUserEmail',this.companyUserEmail);
+	
+	 	
+	// console.log(this.afAuth.auth.currentUser.email)
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
        .then((user) => {
-		 this.authState = user;
-		  console.log(this.authState.uid);
-			this.userId2 = this.authState.uid
-		 localStorage.setItem('firebaseToken',this.authState.uid)
+		console.log("userID " +this.afAuth.auth.currentUser);
+				
+		 AuthService.authState = user;
+		  console.log(AuthService.authState);
+			this.userId2 = AuthService.authState.uid
+		this.firebaseToken = localStorage.setItem('firebaseToken',AuthService.authState.uid);
+	// 	  this.currentUser = JSON.stringify(localStorage.getItem("firebaseToken"));	
+	//   console.log('currentUser',this.currentUser);
+		this.companyType  =  localStorage.getItem('currentCompanyUserType');
+		this.studentTytpe =  localStorage.getItem('currentStudentUserType');
+		console.log('companY Type', this.companyType);
+		console.log('std type',this.studentTytpe)
+		
+			   if(this.studentTytpe == "student" || this.companyType == null){
+		  console.log('navigation S!')	  
+     this.router.navigate(['/app-dashboard'])
+		 }	
+		else{
+		console.log('navigation C!')	 
+        this.router.navigate(['/app-company-dashboard'])
+		 }	  
+		  	
+		 this.currentUser = this.afAuth.auth.currentUser;
+			//   console.log(this.currentUser.name)
+		//   if(AuthService.authState.uid){
+			//   this.router.navigate(['/app-dashboard'])
+		//   }
+			//   else {
+			// 	  this.router.navigate(['/login'])
+			//   }
 		//  this.updateUserData();
 		//  console.log(this.updateUserData)
        })
-       .catch(error => console.log(error));
+	   .catch(error => console.log(error));
+	   
+	  
   }
   
     signOut() {
+
+	localStorage.removeItem('currentCompanyUserType');
+    localStorage.removeItem('currentStudentUserType');
     console.log('111111',this.userId2)			
 	this.afAuth.auth.signOut();
 	  console.log('222222',this.userId2)
@@ -81,6 +122,39 @@ checking;
 //  })
 
   }
+studentServiceData(data){
+	
+	console.log('data',data);
+	console.log('uid',this.afAuth.auth.currentUser.uid)
+	// this.db.list('/students-CV').update(key,{data})
+	this.db.list('/students-CV').update(this.afAuth.auth.currentUser.uid,{fullName : data.fullName,CNIC : data.CNIC, mobile : data.mobile, description : data.description , gender : data.genderOptions,preferredIndustry : data.preferredIndustry })
+	
+}
+
+CompanySignup(CompanySignupData){
+	this.companyUserEmail = CompanySignupData.CompanyEmail;
+
+// console.log(CompanySignupData.CompanyEmail);
+
+console.log(CompanySignupData.CompanyPassword)
+	return this.afAuth.auth.createUserWithEmailAndPassword(CompanySignupData.CompanyEmail,CompanySignupData.CompanyPassword)
+       .then((user) => {
+		AuthService.authState = user;
+		console.log(AuthService.authState)
+		this.userId = AuthService.authState.uid;
+		console.log(this.userId);
+		CompanySignupData.type = 'company';
+		console.log(CompanySignupData.type)
+		this.db.list('company-user').push(CompanySignupData);
+		// this.router.navigate([/companyDashboard])
+	    //  this.db.list('profile')
+		localStorage.setItem('currentCompanyUserType',CompanySignupData.type)
+		this.router.navigate(['/app-company-dashboard'])
+	
+      })
+      .catch(error => console.log(error));
+	// this.db.list("/company-user").push(CompanySignupData)
+}
 
 
 
@@ -100,6 +174,10 @@ checking;
 //     .catch(error => console.log(error));
 
 //   }
+// demo(){
+// 	console.log(this.firebaseToken)
+// }
+
 
 
 }
