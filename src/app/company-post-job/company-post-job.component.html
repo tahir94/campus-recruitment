@@ -1,0 +1,42 @@
+<md-card>
+   <form [formGroup]="studentCV_Form" novalidate>
+	<md-input-container class="example-full-width">
+		<input mdInput placeholder="job title" formControlName="jobTitle">
+		<!-- <md-error *ngIf="emailFormControl.hasError('pattern')">
+      Please enter a valid email address
+    </md-error> -->
+		<!-- <md-error *ngIf="emailFormControl.hasError('required')">
+      Email is <strong>required</strong>
+    </md-error> -->
+	</md-input-container>
+	 <md-input-container class="example-full-width">
+		<input mdInput placeholder="vacancies" formControlName="vacancies">
+	</md-input-container>
+	<md-input-container class="example-full-width">
+		<input mdInput placeholder="job description" formControlName="job_description">
+	</md-input-container>
+	<md-input-container class="example-full-width">
+		<input mdInput placeholder="department" formControlName="description">
+	</md-input-container>
+	<br><br><br>
+	 <md-select placeholder="Select Gender" formControlName="departmentOptions">
+		<md-option *ngFor="let gender of genders" [value]="gender.value">
+			{{ gender.viewValue }}
+		</md-option>
+	</md-select>
+	<br><br><br>
+	<md-select placeholder="Select Preferred Industry"  formControlName="jobCategoryOptions">
+		<md-option *ngFor="let preferredIndustry of preferredIndustries" [value]="preferredIndustry.value">
+			{{ preferredIndustry.viewValue }}
+		</md-option>
+	</md-select>  
+
+	<!-- <md-input-container class="example-full-width">
+			<input mdInput placeholder="Preferred Industry">
+		</md-input-container> -->
+	 <div style="text-align:center">
+		<button md-raised-button color="primary" (click)="submit()">Submit</button>
+	</div> 
+
+</form>
+</md-card>

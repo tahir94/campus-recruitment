@@ -21,12 +21,14 @@ import {MdSelectModule} from '@angular/material';
 import { SignupComponent } from './signup/signup.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import {AuthService } from "././auth-service.service";
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentCVComponent } from './student-CV/student-cv.component';
 import { CompanyComponent } from './company-signup/company.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { CompanyPostJobComponent } from './company-post-job/company-post-job.component';
 
 
 
@@ -50,7 +52,8 @@ const appRoutes : Routes = [
     DashboardComponent,
     StudentCVComponent,
     CompanyComponent,
-    CompanyDashboardComponent
+    CompanyDashboardComponent,
+    CompanyPostJobComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,7 @@ const appRoutes : Routes = [
 	MdSelectModule
 	
   ],
-  providers: [],
+  providers: [AuthService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
