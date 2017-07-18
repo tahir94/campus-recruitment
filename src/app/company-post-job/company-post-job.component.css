@@ -1,0 +1,11 @@
+.example-fill-remaining-space {
+
+  flex: 1 1 auto;
+} 
+.example-form {
+  width: 500px;
+} 
+
+.example-full-width {
+  width: 100%;
+}

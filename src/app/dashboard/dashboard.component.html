@@ -11,6 +11,13 @@
     </div> 
 </md-toolbar>
 <h1 style="text-align : center;font-family : sans-serifl;color : #607D8B">DASHBOARD</h1>
+<ul><li *ngFor="let showTitle of showCompanyTitle">{{showTitle}}
+	</li></ul>
+<ul><li *ngFor="let showDescript of showDescription">{{showDescript}}
+	</li></ul>
+<ul><li *ngFor="let showComp of showCompanyData">{{showComp.job_description | json}}
+	</li></ul>
+
 
 
  

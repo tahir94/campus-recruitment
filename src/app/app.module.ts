@@ -17,6 +17,8 @@ import {MdButtonModule} from '@angular/material';
 import {MdInputModule} from '@angular/material';
 import {MdToolbarModule} from '@angular/material';
 import {MdSelectModule} from '@angular/material';
+import {MdTableModule} from '@angular/material';
+import { CdkTableModule } from "@angular/cdk"
 
 import { SignupComponent } from './signup/signup.component';
 
@@ -26,9 +28,10 @@ import {AuthService } from "././auth-service.service";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentCVComponent } from './student-CV/student-cv.component';
-import { CompanyComponent } from './company-signup/company.component';
+import { CompanyComponent } from   './company-signup/company.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { CompanyPostJobComponent } from './company-post-job/company-post-job.component';
+
 
 
 
@@ -39,8 +42,8 @@ const appRoutes : Routes = [
   {path : 'app-dashboard',component : DashboardComponent},
   {path : 'app-student-cv' , component : StudentCVComponent},
   {path : 'app-company'    , component : CompanyComponent},
-  {path : 'app-company-dashboard'    , component : CompanyDashboardComponent}
-  
+  {path : 'app-company-dashboard'    , component : CompanyDashboardComponent},
+  {path : 'app-company-post-job' , component : CompanyPostJobComponent}
 ]
 
 
@@ -71,7 +74,9 @@ const appRoutes : Routes = [
     MdInputModule,
     MdCardModule,
 	MdToolbarModule,
-	MdSelectModule
+	MdSelectModule,
+	MdTableModule,
+	CdkTableModule
 	
   ],
   providers: [AuthService], 

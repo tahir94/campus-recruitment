@@ -1,5 +1,13 @@
+<md-toolbar style="background : #607D8B">
+	<span style="color : white; text-align : center ">Campus Recruitment</span>
+	<span class="example-fill-remaining-space"></span>
+	<div>
+		<button md-raised-button color="primary" (click)="signOut()">Logout</button>
+	</div>
+</md-toolbar>
+<br><br>
 <md-card>
-   <form [formGroup]="studentCV_Form" novalidate>
+   <form [formGroup]="postJobForm" novalidate>
 	<md-input-container class="example-full-width">
 		<input mdInput placeholder="job title" formControlName="jobTitle">
 		<!-- <md-error *ngIf="emailFormControl.hasError('pattern')">
@@ -15,21 +23,28 @@
 	<md-input-container class="example-full-width">
 		<input mdInput placeholder="job description" formControlName="job_description">
 	</md-input-container>
-	<md-input-container class="example-full-width">
-		<input mdInput placeholder="department" formControlName="description">
-	</md-input-container>
 	<br><br><br>
-	 <md-select placeholder="Select Gender" formControlName="departmentOptions">
-		<md-option *ngFor="let gender of genders" [value]="gender.value">
-			{{ gender.viewValue }}
+	 <md-select placeholder="Select department" formControlName="departmentOptions">
+		<md-option *ngFor="let department of departments" [value]="department.value">
+			{{ department.viewValue }}
 		</md-option>
 	</md-select>
 	<br><br><br>
-	<md-select placeholder="Select Preferred Industry"  formControlName="jobCategoryOptions">
-		<md-option *ngFor="let preferredIndustry of preferredIndustries" [value]="preferredIndustry.value">
-			{{ preferredIndustry.viewValue }}
+	<md-select placeholder="Select jobCategory"  formControlName="jobCategoryOptions">
+		<md-option *ngFor="let jobCategory of jobCategories" [value]="jobCategory.value">
+			{{ jobCategory.viewValue }}
 		</md-option>
 	</md-select>  
+	<br><br><br>
+	<md-select placeholder="Job Type"  formControlName="jobType">
+		<md-option *ngFor="let jobType of jobTypes" [value]="jobType.value">
+			{{ jobType.viewValue }}
+		</md-option>
+		</md-select>
+		<md-input-container class="example-full-width">
+		<input mdInput placeholder="salary" formControlName="salary">
+	</md-input-container>
+	 
 
 	<!-- <md-input-container class="example-full-width">
 			<input mdInput placeholder="Preferred Industry">
