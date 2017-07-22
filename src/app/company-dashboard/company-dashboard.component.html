@@ -1,28 +1,82 @@
- <md-toolbar style="background : #607D8B">
-   <span  style="color : white; text-align : center ">Campus Recruitment</span>
-	 <span class="example-fill-remaining-space"></span>
-	 <div>	
-      <button md-raised-button color="primary" routerLink="/app-company-post-job" >Post a job</button> 
-        &nbsp;
-	</div>    
-    <div>
-      <button md-raised-button color="primary" (click)="signOut()">Logout</button>
-    </div> 
+<md-toolbar style="background : #607D8B">
+	<span style="color : white; text-align : center ">Campus Recruitment</span>
+	<span class="example-fill-remaining-space"></span>
+	<div>
+		<button md-raised-button color="primary" routerLink="/app-company-post-job">Post a job</button> &nbsp;
+	</div>
+	<div>
+		<button md-raised-button color="primary" (click)="signOut()">Logout</button>
+	</div>
 </md-toolbar>
 
-<table>
-  <tr>
-    <th>Job Title</th>
-    <th>Total Applicants</th>
-    <th>view All Candidates</th>
-  </tr>
+<!-- <table>
+	<tr>
+		<th>Job Title</th>
+		<th>Total Applicants</th>
+		<th>view All Candidates</th>
+	</tr>
 
 
-  <td>
-     <tr *ngFor="let job of jobData">{{job}} </tr> 
-    <!-- <td>Maria Anders</td>
-    <td>Germany</td> -->
-  </td>
- 
+	<td>
+		<tr *ngFor="let job of jobData">{{job}}
 
+		</tr>
+
+
+	</td>
+	<td>
+
+	</td>
+	<td>
+		<button (click)="viewCandidates()">View All Candidates</button>
+	</td>
+
+
+
+</table> -->
+
+<table class="table table-striped">
+	<tr>
+		<th>Job Title</th>
+		<th>Total Applicants</th>
+		<th>Veiw All Candidates</th>
+	</tr>
+	<td>
+		<tr *ngFor="let a of companyDataArray">
+			<th>{{a.jobTitle}}</th>
+			<th>{{a.job_description}}</th>
+			<button (click)="viewCandidates(a.jobTitle)">view Candidates</button>
+		</tr>
+		
+		<!-- <tr *ngFor="let job of jobData;let i  = index">
+			{{job | json}}
+			<pre>prreeeeeee : {{job | json}}</pre> 
+			<button class="btn btn-default" role="button" (click)="viewAllCandidates(i,job.$key)">View All Candidates</button>
+		</tr> -->
+		<!-- <td>hello td 2</td> -->
+
+	</td>
+	<td>
+		<tr></tr>
+	</td>
+	<!-- <td>
+		 <tr><button class="btn btn-default" role="button" (click)="viewAllCandidates(myJobs.$key)">View All Candidates</button></tr>
+	</td> -->
 </table>
+<!-- <pre>{{a | json}}</pre> -->
+<!-- <ul><li *ngFor="let a of showStudentData; let i=index">
+	{{a.$key | json}}
+ <button (click)="clicked(i,a.$key)">clickkkkk</button>
+</li></ul> -->
+
+
+<!-- <app-dashboard></app-dashboard> -->
+<!-- <app-dashboard (applyForJob)="demoOfOutput($event)"></app-dashboard>  -->
+<!-- <button (click)="">please click Me</button> -->
+<!-- <button (applyForJob)="demoOfOutput($event)"> please click </button>  -->
+
+<!-- <ul>
+	<li *ngFor="let a of postArray">{{a}}
+		
+	</li>
+</ul> -->

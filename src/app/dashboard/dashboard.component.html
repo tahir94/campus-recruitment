@@ -1,23 +1,104 @@
-
- <md-toolbar style="background : #607D8B">
-   <span  style="color : white; text-align : center ">Campus Recruitment</span>
-	 <span class="example-fill-remaining-space"></span>
-	 <div>	
-      <button md-raised-button color="primary" routerLink="/app-student-cv" >Upload CV</button> 
-        &nbsp;
-	</div>    
-    <div>
-      <button md-raised-button color="primary" (click)="signOut()">Logout</button>
-    </div> 
+<md-toolbar style="background : #607D8B">
+	<span style="color : white; text-align : center ">Campus Recruitment</span>
+	<span class="example-fill-remaining-space"></span>
+	<div>
+		<button md-raised-button color="primary" routerLink="/app-student-cv">Upload CV</button> &nbsp;
+	</div>
+	<div>
+		<button md-raised-button color="primary" (click)="signOut()">Logout</button>
+	</div>
 </md-toolbar>
+
 <h1 style="text-align : center;font-family : sans-serifl;color : #607D8B">DASHBOARD</h1>
-<ul><li *ngFor="let showTitle of showCompanyTitle">{{showTitle}}
+<!-- <ul><li *ngFor="let showTitle of showCompanyTitle">{{showTitle}}
 	</li></ul>
 <ul><li *ngFor="let showDescript of showDescription">{{showDescript}}
-	</li></ul>
-<ul><li *ngFor="let showComp of showCompanyData">{{showComp.job_description | json}}
-	</li></ul>
+	</li></ul> -->
+
+
+<!-- <ul><li *ngFor="let showComp of showCompanyData">{{showComp.job_description}}
+	</li></ul>  -->
 
 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+<md-card *ngFor="let showComp of showCompanyData;let i = index">
+	{{showComp.jobTitle}} {{i}}
+	<div>
+		{{showComp.job_description}}
+	</div>
+	<!-- <div>
+
+		{{showComp | json}}
+	</div> -->
+	 <pre>fooooooooooooooo {{showComp | json}}</pre>
+	<button md-raised-button color="primary" (click)="apply(showComp.jobTitle)">Apply</button>
+
+	<button md-raised-button (click)="details(i,showComp)">Details</button>
+
+	<div *ngIf="i==indexComparitor">
+
+		<div style="overflow-x:auto;">
+			<table>
+				<tr>
+					<th>Total Vacancies</th>
+					<td>{{showComp.vacancies}}</td>
+					<!-- <th>Last Name</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th> -->
+				</tr>
+				<tr>
+					<th>Career Level</th>
+					<td>{{showComp.careerLevelOptions}}</td>
+					<!-- <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td> -->
+				</tr>
+
+				<tr>
+					<th>Category</th>
+					<td>{{showComp.jobCategoryOptions}}</td>
+				</tr>
+				<tr>
+					<th>Department</th>
+					<td>{{showComp.departmentOptions}}</td>
+				</tr>
+				<tr>
+					<th>Job Type</th>
+					<td>{{showComp.jobType}}</td>
+				</tr>
+				<tr>
+					<th>Salary</th>
+					<td>{{showComp.salary}}</td>
+				</tr>
+			</table>
+		</div>
+
+
+	</div>
+</md-card>

@@ -49,11 +49,12 @@ export class CompanyPostJobComponent implements OnInit {
 			'jobTitle': '',
 			'vacancies': '',
 			'job_description': '',
-			'department': '',
 			'departmentOptions': '',
 			'jobCategoryOptions': '',
+			'careerLevelOptions' : '',
 			'jobType': '',
-			'salary': ''
+			'salary': '',
+			'$key':''
 
 
 		})

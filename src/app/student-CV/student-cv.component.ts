@@ -37,7 +37,8 @@ export class StudentCVComponent implements OnInit {
 			'mobile'      : '',
 			'description' : '',
 			'genderOptions': '',
-			'preferredIndustry' : ""
+			'preferredIndustry' : "",
+			'$key' : ''
 				})
 	}
 	submit(){

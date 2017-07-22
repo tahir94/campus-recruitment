@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from "@angular/router";
 import * as firebase from 'firebase';
@@ -23,6 +23,10 @@ export class AuthService {
 	items;
 	logindata;
 	userData;
+	ddd;
+	appliedStudentsArray = [];
+	value;
+	viewAppliedData : FirebaseObjectObservable<any>;
 	data: FirebaseListObservable<any>;
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private router: Router) {
 		console.log('service firebaseToken', this.firebaseToken)
@@ -262,7 +266,23 @@ export class AuthService {
 		return this.userData;
 	}
 
-}
 
+// applidStudentData(data){
+// 	// debugger;
+// 	this.viewAppliedData = this.db.object('/jobsByCompanies/');
+// 	this.viewAppliedData.subscribe((data)=>{
+// 		console.log(data)
+// 	});
+// for(let i = 0; i < data.length ; i++){
+// 	console.log(data[i])
+// }
+
+// console.log('data',data);
+
+// this.ddd = this.appliedStudentsArray.push(data);
+// console.log('ddd',this.appliedStudentsArray)
+// }
+
+}
 
 //  3b central avenue 
