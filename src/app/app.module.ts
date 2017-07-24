@@ -18,7 +18,8 @@ import {MdInputModule} from '@angular/material';
 import {MdToolbarModule} from '@angular/material';
 import {MdSelectModule} from '@angular/material';
 import {MdTableModule} from '@angular/material';
-import { CdkTableModule } from "@angular/cdk"
+import { CdkTableModule } from "@angular/cdk";
+import {MdTabsModule} from '@angular/material';
 
 import { SignupComponent } from './signup/signup.component';
 
@@ -31,6 +32,10 @@ import { StudentCVComponent } from './student-CV/student-cv.component';
 import { CompanyComponent } from   './company-signup/company.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { CompanyPostJobComponent } from './company-post-job/company-post-job.component';
+import { AllStudentsComponent } from './all-students/all-students.component';
+import { AdminComponent } from './admin/admin.component';
+
+
 
 
 
@@ -43,7 +48,9 @@ const appRoutes : Routes = [
   {path : 'app-student-cv' , component : StudentCVComponent},
   {path : 'app-company'    , component : CompanyComponent},
   {path : 'app-company-dashboard'    , component : CompanyDashboardComponent},
-  {path : 'app-company-post-job' , component : CompanyPostJobComponent}
+  {path : 'app-company-post-job' , component : CompanyPostJobComponent},
+  {path : 'app-all-students' , component : AllStudentsComponent},
+  {path : 'app-admin' , component : AdminComponent}
 ]
 
 
@@ -56,7 +63,10 @@ const appRoutes : Routes = [
     StudentCVComponent,
     CompanyComponent,
     CompanyDashboardComponent,
-    CompanyPostJobComponent
+    CompanyPostJobComponent,
+	AllStudentsComponent,
+	AdminComponent
+  
   ],
   imports: [
     BrowserModule,
@@ -76,7 +86,8 @@ const appRoutes : Routes = [
 	MdToolbarModule,
 	MdSelectModule,
 	MdTableModule,
-	CdkTableModule
+	CdkTableModule,
+	MdTabsModule
 	
   ],
   providers: [AuthService], 

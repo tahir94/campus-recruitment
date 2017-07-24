@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from "@angular/router";
 import * as firebase from 'firebase';
@@ -26,8 +26,11 @@ export class AuthService {
 	ddd;
 	appliedStudentsArray = [];
 	value;
-	viewAppliedData : FirebaseObjectObservable<any>;
+	viewAppliedData: FirebaseObjectObservable<any>;
 	data: FirebaseListObservable<any>;
+	adminEmail;
+	adminUid;
+	admin: FirebaseListObservable<any>;
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private router: Router) {
 		console.log('service firebaseToken', this.firebaseToken)
 		// this.afAuth.authState.subscribe((auth)=>{
@@ -48,6 +51,7 @@ export class AuthService {
 		console.log(this.userName)
 		return this.afAuth.auth.createUserWithEmailAndPassword(studentData.userEmail, studentData.userPassword)
 			.then((user) => {
+
 
 				AuthService.authState = user;
 				console.log(AuthService.authState)
@@ -98,19 +102,44 @@ export class AuthService {
 				// 		break;
 				// 	}
 				// }
+					//admin login
+		// this.afAuth.auth.
+		// this.admin = this.db.list('/users', { preserveSnapshot: true });
+		// this.admin
+		// 	.subscribe(snapshots => {
+		// 		snapshots.forEach(snapshot => {
+		// 			console.log(snapshot.key)
+		// 			console.log(snapshot.val().userEmail)
+		// 			this.adminEmail = snapshot.val().userEmail;
+		// 			if (this.adminEmail == 'admin@gmail.com') {
+		// 				this.router.navigate(['/app-admin'])
+		// 			}
+		// 		});
+		// 	})
+
+		this.adminUid = this.afAuth.auth.currentUser.uid;
+		if(this.adminUid === 'JLADWKDIuKeFQf4C6CSOU4qZyDr1'){
+			this.router.navigate(['/app-admin']);
+			localStorage.setItem('firebaseToken',this.afAuth.auth.currentUser.uid);
+		}
+	
+
+
 				this.db.object('/users/' + this.afAuth.auth.currentUser.uid).subscribe((innerData) => {
 					console.log(innerData.type);
 					this.userData = innerData;
-					if(this.userData.type == 'student') {
+					if (this.userData.type == 'student') {
 						this.router.navigate(['/app-dashboard']);
 						this.firebaseToken = localStorage.setItem('firebaseToken', this.afAuth.auth.currentUser.uid);
-					}else{
+					} else if(this.userData.type == 'company' ){
 						this.firebaseToken = localStorage.setItem('firebaseToken', this.afAuth.auth.currentUser.uid);
 						this.router.navigate(['/app-company-dashboard']);
 					}
 				})
-				
+
 			})
+
+	
 		// .then((user) => {
 		// 	this.authState = user;
 		// 	console.log('this.authState', this.authState);
@@ -227,7 +256,7 @@ export class AuthService {
 				console.log(this.userId);
 				CompanySignupData.type = 'company';
 				console.log(CompanySignupData.type)
-				this.db.list('users').update(this.userId,  CompanySignupData );
+				this.db.list('users').update(this.userId, CompanySignupData);
 				// this.router.navigate([/companyDashboard])
 				//  this.db.list('profile')
 				localStorage.setItem('currentCompanyUserType', CompanySignupData.type)
@@ -267,21 +296,21 @@ export class AuthService {
 	}
 
 
-// applidStudentData(data){
-// 	// debugger;
-// 	this.viewAppliedData = this.db.object('/jobsByCompanies/');
-// 	this.viewAppliedData.subscribe((data)=>{
-// 		console.log(data)
-// 	});
-// for(let i = 0; i < data.length ; i++){
-// 	console.log(data[i])
-// }
+	// applidStudentData(data){
+	// 	// debugger;
+	// 	this.viewAppliedData = this.db.object('/jobsByCompanies/');
+	// 	this.viewAppliedData.subscribe((data)=>{
+	// 		console.log(data)
+	// 	});
+	// for(let i = 0; i < data.length ; i++){
+	// 	console.log(data[i])
+	// }
 
-// console.log('data',data);
+	// console.log('data',data);
 
-// this.ddd = this.appliedStudentsArray.push(data);
-// console.log('ddd',this.appliedStudentsArray)
-// }
+	// this.ddd = this.appliedStudentsArray.push(data);
+	// console.log('ddd',this.appliedStudentsArray)
+	// }
 
 }
 

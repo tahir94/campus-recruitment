@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabaseModule, FirebaseObjectObservable, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from ".././auth-service.service";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-company-dashboard',
@@ -19,6 +20,9 @@ export class CompanyDashboardComponent implements OnInit {
 	forCompareCompanyId = [];
 
 
+
+
+
 	//
 	companyKey;
 	inApplyStdCompKey = [];
@@ -28,9 +32,10 @@ export class CompanyDashboardComponent implements OnInit {
 	showCompanyJobs: FirebaseListObservable<any>;
 	arr = [];
 
-	constructor(private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+	constructor( private router: Router,private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
 		this.getList();
 		this.showJobs();
+
 	}
 
 	ngOnInit() { }

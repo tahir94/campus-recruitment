@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
 	firebaseToken;
 	c;
 
+
 	constructor(private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder, private router: Router) {
 		// this.authService.demo()
 
@@ -39,12 +40,9 @@ export class LoginComponent implements OnInit {
 	login() {
 
 		this.loginAuth = this.authService.emailLogin(this.loginForm.value.userEmail, this.loginForm.value.userPassword)
-			// .then((data) => {
-			// 	console.log("data", data);
-			// 	this.db.list('/users').subscribe((innerData) => {
-			// 		console.log("innerData", innerData);
-			// 	})
-			// })
+
+	
+
 		console.log(this.loginAuth)
 
 

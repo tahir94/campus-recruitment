@@ -33,7 +33,7 @@
 
 
 <md-card *ngFor="let showComp of showCompanyData;let i = index">
-	{{showComp.jobTitle}} {{i}}
+	{{showComp.jobTitle}}
 	<div>
 		{{showComp.job_description}}
 	</div>
@@ -41,7 +41,7 @@
 
 		{{showComp | json}}
 	</div> -->
-	 <pre>fooooooooooooooo {{showComp | json}}</pre>
+	 <!-- <pre>fooooooooooooooo {{showComp | json}}</pre> -->
 	<button md-raised-button color="primary" (click)="apply(showComp.jobTitle)">Apply</button>
 
 	<button md-raised-button (click)="details(i,showComp)">Details</button>

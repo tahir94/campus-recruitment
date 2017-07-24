@@ -1,0 +1,13 @@
+<md-toolbar style="background : #607D8B">
+	<span style="color : white; text-align : center ">Campus Recruitment</span>
+	<span class="example-fill-remaining-space"></span>
+	
+	<div>
+		<button md-raised-button color="primary" (click)="signOut()">Logout</button>
+	</div>
+</md-toolbar>
+<br><br>
+<md-card *ngFor="let std of StudentUserArray">		
+	Student Name  : {{std.userName }} <br>
+	Student Email : {{std.userEmail }}
+</md-card>

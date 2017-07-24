@@ -1,0 +1,50 @@
+<md-toolbar style="background : #607D8B">
+	<span style="color : white; text-align : center ">Campus Recruitment</span>
+	<span class="example-fill-remaining-space"></span>
+	<!-- <div>
+		<button md-raised-button color="primary" routerLink="/app-student-cv"> Students List</button> &nbsp;
+	</div>
+	<div>
+		<button md-raised-button color="primary" (click)="signOut()">Companies List</button>
+	</div>
+	<br>-->
+	<div> 
+		<button md-raised-button color="primary" (click)="signOut()">Sign Out</button>
+	</div>
+</md-toolbar>
+ 
+<md-tab-group>
+  <md-tab label="Tab 1">
+	  <h2 style="color : #607D8B">Student List</h2>
+  <md-card  >
+
+	<md-card-content *ngFor="let stdList of studentsArray" >
+	
+		 Student Email : {{stdList.userEmail }} <br>
+		  Student Name : {{stdList.userEmail }}
+		  <md-card-actions>
+				<button color="primary" md-button>Details</button>
+				<button color="warn" md-button >Block</button>
+			</md-card-actions>
+	</md-card-content>
+  </md-card>
+	
+  </md-tab>
+  <md-tab label="Tab 2">
+	  <h2 style="color : #607D8B">Company List</h2>
+		<md-card>
+			<md-card-content *ngFor="let company of companysArray">
+			  Company Email :  {{company.CompanyEmail}}<br>
+			  Company Name  : {{company.CompanyName}} 
+				<md-card-actions>
+				   <button color="primary" md-button>Details</button>
+				   <button color="warn" md-button (click)="removeCompany(company.CompanyEmail)">Remove</button>
+				</md-card-actions>
+			  
+			</md-card-content>
+			  
+		</md-card>
+			
+  </md-tab>
+</md-tab-group> 
+

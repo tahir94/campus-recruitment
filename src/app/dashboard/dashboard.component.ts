@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
 	companyData;
 	companyObject;
 	studentProfileData;
+
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private authService: AuthService, private router: Router) {
 
 		this.items = this.db.list('/jobsByCompanies')
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
 			for (let i = 0; i < data.length; i++) {
 				console.log(data[i]);
 				console.log(data[i].$key);
+				//key of company
 				this.companyObject = data[i].$key;
 				this.companyUserKey = data[i].$key;
 				this.keyyys = Object.keys(data[i]);
@@ -78,6 +80,8 @@ export class DashboardComponent implements OnInit {
 			console.log('null')
 			this.router.navigate(['/app-login'])
 		}
+
+	
 
 	}
 
@@ -132,6 +136,8 @@ export class DashboardComponent implements OnInit {
 			//setTimeout(() => {
 				this.appliedStudentDB = this.db.list("/appliedByStudent");
 				this.studentProfileData.id = companyTitle;
+				this.studentProfileData.appliedCompanyEmail = this.companyObject;
+				// this.
 				console.log(this.studentProfileData);
 				this.appliedStudentDB.push(this.studentProfileData)
 

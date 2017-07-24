@@ -42,11 +42,11 @@
 		</md-option>
 		</md-select>
 	<br><br><br>
-	<md-select placeholder="Job Type"  formControlName="jobType">
+	 <md-select placeholder="Job Type"  formControlName="jobTypeOptions">
 		<md-option *ngFor="let jobType of jobTypes" [value]="jobType.value">
 			{{ jobType.viewValue }}
 		</md-option>
-		</md-select>
+		</md-select> 
 		<md-input-container class="example-full-width">
 		<input mdInput placeholder="salary" formControlName="salary">
 	</md-input-container>

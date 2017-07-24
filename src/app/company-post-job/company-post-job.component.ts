@@ -11,6 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class CompanyPostJobComponent implements OnInit {
 	postJobForm: FormGroup;
+	companyUid;
 
 	departments = [
 		{ value: 'Accounts', viewValue: 'Accounts' },
@@ -42,7 +43,11 @@ export class CompanyPostJobComponent implements OnInit {
 
 	newJob = 0;
 
-	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder) { }
+	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder) {
+            this.companyUid = this.afAuth.auth.currentUser.uid
+	console.log();
+	
+	 }
 
 	ngOnInit() {
 		this.postJobForm = this.fb.group({
@@ -52,9 +57,9 @@ export class CompanyPostJobComponent implements OnInit {
 			'departmentOptions': '',
 			'jobCategoryOptions': '',
 			'careerLevelOptions' : '',
-			'jobType': '',
+			'jobTypeOptions': '',
 			'salary': '',
-			'$key':''
+			// '$key':''
 
 
 		})
@@ -63,8 +68,10 @@ export class CompanyPostJobComponent implements OnInit {
 	submit() {
 
 		console.log(this.postJobForm.value);
+		this.postJobForm.value.AppliedCompanyUid = this.companyUid;                         
+		console.log(this.postJobForm.value)
 		this.db.list('/jobsByCompanies/' +this.afAuth.auth.currentUser.uid).push(this.postJobForm.value)
-		this.newJob++
+		// this.newJob++
 	}
 
 	signOut(){
