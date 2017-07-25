@@ -37,18 +37,22 @@
 
 
 </table> -->
-
-<table class="table table-striped">
+<div *ngIf="appState == 'default'">
+<table  class="table table-striped">
 	<tr>
-		<th>Job Title</th>
-		<th>Total Applicants</th>
-		<th>Veiw All Candidates</th>
+		<th style="padding : 10px" *ngFor="let th of tableHeader">{{th}}</th>
+		<!-- <th>Job Title</th> -->
+		<!-- <th>Total Applicants</th> -->
+		<!-- <th>Veiw All Candidates</th> -->
 	</tr>
 	<td>
 		<tr *ngFor="let a of companyDataArray">
-			<th>{{a.jobTitle}}</th>
-			<th>{{a.job_description}}</th>
-			<button (click)="viewCandidates(a.jobTitle)">view Candidates</button>
+			<th style="position: relative;left: 80px;">{{a.jobTitle}}</th>
+			 <th style="position: relative;left: 175px;">{{a.job_description}}</th> 
+			
+			
+			<button md-raised-button color="primary" style="position: relative;left: 260px;"  (click)="viewCandidates(a.jobTitle)">view Candidates</button>
+		    
 		</tr>
 		
 		<!-- <tr *ngFor="let job of jobData;let i  = index">
@@ -59,6 +63,9 @@
 		<!-- <td>hello td 2</td> -->
 
 	</td>
+
+
+
 	<td>
 		<tr></tr>
 	</td>
@@ -66,6 +73,22 @@
 		 <tr><button class="btn btn-default" role="button" (click)="viewAllCandidates(myJobs.$key)">View All Candidates</button></tr>
 	</td> -->
 </table>
+</div>
+
+
+
+<div *ngIf="appState == 'showCV'">
+  <ul>
+	  <li *ngFor="let a of studentCV_Arr">
+           {{a | json}}
+	  </li>
+  </ul>
+<button (click)="back()">Back</button>
+</div>
+
+
+
+
 <!-- <pre>{{a | json}}</pre> -->
 <!-- <ul><li *ngFor="let a of showStudentData; let i=index">
 	{{a.$key | json}}

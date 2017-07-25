@@ -3,7 +3,7 @@ import { AngularFireDatabaseModule, FirebaseObjectObservable, AngularFireDatabas
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthService } from ".././auth-service.service";
 import { Router } from "@angular/router";
-
+import { Location } from "@angular/common";
 @Component({
 	selector: 'app-company-dashboard',
 	templateUrl: './company-dashboard.component.html',
@@ -26,21 +26,31 @@ export class CompanyDashboardComponent implements OnInit {
 	//
 	companyKey;
 	inApplyStdCompKey = [];
-	companyDataArray  = [];
+	companyDataArray = [];
 	getCompanyKey: FirebaseObjectObservable<any>;
 	getStudentAppliedId: FirebaseListObservable<any>;
 	showCompanyJobs: FirebaseListObservable<any>;
+	fetchStudentCV: FirebaseListObservable<any>;
 	arr = [];
+	appState = 'default';
+	studentCVUid;
+	studentUidInApplicants;
+	studentCV_Val;
+	studentCV_Arr = []
 
-	constructor( private router: Router,private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+	tableHeader = ['Job Title', 'Description', 'View All Candidates']
+
+	constructor(private location: Location, private router: Router, private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
 		this.getList();
 		this.showJobs();
+
+
 
 	}
 
 	ngOnInit() { }
 	showJobs() {
-		this.showCompanyJobs = this.db.list('jobsByCompanies' + "/" + this.afAuth.auth.currentUser.uid ,{ preserveSnapshot: true });
+		this.showCompanyJobs = this.db.list('jobsByCompanies' + "/" + this.afAuth.auth.currentUser.uid, { preserveSnapshot: true });
 		this.showCompanyJobs.subscribe(snapshots => {
 			snapshots.forEach(snapshot => {
 				console.log(snapshot.key)
@@ -103,6 +113,7 @@ export class CompanyDashboardComponent implements OnInit {
 
 	}
 	viewCandidates(title) {
+		this.appState = 'showCV'
 		// get company key
 		this.getCompanyKey = this.db.object('jobsByCompanies', { preserveSnapshot: true });
 		this.getCompanyKey.subscribe(snapshots => {
@@ -127,7 +138,8 @@ export class CompanyDashboardComponent implements OnInit {
 			snapshots.forEach(snapshot => {
 				console.log(snapshot.key)
 				console.log(this.companyKey)
-				console.log(snapshot.val().id);
+				console.log(snapshot.val());
+				this.studentUidInApplicants = snapshot.val()
 				if (title == snapshot.val().id) {
 					alert('keys are match ! ');
 					this.arr.push(snapshot.val())
@@ -144,12 +156,51 @@ export class CompanyDashboardComponent implements OnInit {
 		});
 		console.log('outside 1', this.companyKey);
 		console.log('outside 2', this.inApplyStdCompKey);
+
+		//now getting student's cv
+
+		this.fetchStudentCV = this.db.list('/students-CV', { preserveSnapshot: true });
+		this.fetchStudentCV
+			.subscribe(snapshots => {
+				snapshots.forEach(snapshot => {
+					console.log(snapshot.key);
+					console.log(snapshot.val());
+					
+					this.studentCVUid = snapshot.key;
+					this.studentCV_Val = snapshot.val();
+					console.log(this.studentUidInApplicants);
+					
+					if (this.studentCVUid == this.studentUidInApplicants.studentUid) {
+						// alert('students are match !')
+						console.log(this.studentCV_Val);
+						this.studentCV_Arr.push(this.studentCV_Val)
+							
+					}
+					console.log(snapshot.val());
+
+
+				});
+
+
+			});
+
+
+
+
+
 		// if(this.companyKey == this.inApplyStdCompKey){
 		// 	alert("id's are match ")
 		// }
 		// else {
 		// 	alert("sorry ! id's are not match ! ")
 		// }
+
+
+
+	}
+	back() {
+		this.appState = "default";
+
 	}
 
 }

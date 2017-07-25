@@ -27,7 +27,8 @@ export class DashboardComponent implements OnInit {
 	jobsByCompaniesData;
 	companyUserKey;
 	appliedStudentData2: FirebaseListObservable<any>
-	appliedStudentDB: FirebaseListObservable<any>
+	appliedStudentDB: FirebaseListObservable<any>;
+	appliedStudentDB2: FirebaseListObservable<any>
 	keyyys;
 	keysend;
 	f;
@@ -36,35 +37,59 @@ export class DashboardComponent implements OnInit {
 	companyObject;
 	studentProfileData;
 
+
+	// 
+	companyArray = [];
+	appliedByStudent;
+
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private authService: AuthService, private router: Router) {
 
-		this.items = this.db.list('/jobsByCompanies')
-		this.items.subscribe((data) => {
-			console.log(data);
-			data;
-			for (let i = 0; i < data.length; i++) {
-				console.log(data[i]);
-				console.log(data[i].$key);
-				//key of company
-				this.companyObject = data[i].$key;
-				this.companyUserKey = data[i].$key;
-				this.keyyys = Object.keys(data[i]);
-				for (let a in data[i]) {
-					this.f = 0;
-					while (this.f < 1) {
-						data[i][a].$key = this.keyyys[this.h];
-						this.h++;
-						this.f = 1;
-					}
-					this.showCompanyData.push(data[i][a])
-					console.log(this.showCompanyData)
-					this.showCompanyTitle.push(data[i][a].jobTitle);
-					this.showDescription.push(data[i][a].job_description);
-				}
-			}
+		this.items = db.list('/jobsByCompanies', { preserveSnapshot: true });
+		this.items
+			.subscribe(snapshots => {
+				snapshots.forEach(snapshot => {
+					// company key
+					console.log(snapshot.key)
+					console.log(snapshot.val());
 
-		}
-		)
+					snapshot.forEach(param => {
+					// job key	
+					console.log(param.key)
+					console.log(param.val());
+					this.companyArray.push(param.val());
+					console.log(this.companyArray);
+					
+					
+				});
+
+				});
+			})
+		// this.items.subscribe((data) => {
+		// 	console.log(data);
+		// 	data;
+		// 	for (let i = 0; i < data.length; i++) {
+		// 		console.log(data[i]);
+		// 		console.log(data[i].$key);
+		// 		//key of company
+		// 		this.companyObject = data[i].$key;
+		// 		this.companyUserKey = data[i].$key;
+		// 		this.keyyys = Object.keys(data[i]);
+		// 		for (let a in data[i]) {
+		// 			this.f = 0;
+		// 			while (this.f < 1) {
+		// 				data[i][a].$key = this.keyyys[this.h];
+		// 				this.h++;
+		// 				this.f = 1;
+		// 			}
+		// 			this.showCompanyData.push(data[i][a])
+		// 			console.log(this.showCompanyData)
+		// 			this.showCompanyTitle.push(data[i][a].jobTitle);
+		// 			this.showDescription.push(data[i][a].job_description);
+		// 		}
+		// 	}
+
+		// }
+	
 		this.companyType = localStorage.getItem('currentCompanyUserType');
 		this.studentTytpe = localStorage.getItem('currentStudentUserType');
 		this.firebaseToken = localStorage.getItem('firebaseToken');
@@ -81,7 +106,7 @@ export class DashboardComponent implements OnInit {
 			this.router.navigate(['/app-login'])
 		}
 
-	
+
 
 	}
 
@@ -105,51 +130,61 @@ export class DashboardComponent implements OnInit {
 		console.log("data", data);
 	}
 
-	apply(companyTitle) {
-		// debugger;
-		console.log(companyTitle);
-		// this.authService.applidStudentData(companyUid)
-		this.getStudentCVdata = this.db.object('/students-CV/' + this.afAuth.auth.currentUser.uid);
-		this.getStudentCVdata.subscribe((data) => {
-			console.log(data)
-			this.studentProfileData = data;
-			// debugger;
-			// this.appliedStudentData.push(data);
-			// console.log(this.appliedStudentData);
-			this.appliedStudentDB = this.db.list('jobsByCompanies');
-			this.appliedStudentDB.subscribe((data) => {
-				console.log(data);
-				for (let i = 0; i < data.length; i++) {
-					console.log(data[i]);
-					for (let a in data[i]) {
-						this.jobsByCompaniesData = data[i][a]
-						console.log('1', data[i][a]);
-						this.companyData = data[i][a];
-						console.log(this.companyObject)
-					}
-				}
+	apply(jobTitle,companyUid){
+		// console.log(jobTitle);
+		// console.log(companyUid);
 
-
-
-			});
-
-			//setTimeout(() => {
-				this.appliedStudentDB = this.db.list("/appliedByStudent");
-				this.studentProfileData.id = companyTitle;
-				this.studentProfileData.appliedCompanyEmail = this.companyObject;
-				// this.
-				console.log(this.studentProfileData);
-				this.appliedStudentDB.push(this.studentProfileData)
-
-			//}, 3000)
-
-		})
-
-
-		// this.authService.applidStudentData(this.appliedStudentData)
-		// this.applyForJob.emit(this.appliedStudentData)
-		// console.log(this.getStudentCVdata)
+		this.appliedByStudent = this.db.list('appliedByStudent',{preserveSnapshot : true});
+		this.appliedByStudent.push({jobTitle : jobTitle,comapanyUid : companyUid , studentUid : this.afAuth.auth.currentUser.uid})
+		
+		
 	}
+
+	// apply(jobTitle,companyUid) {
+
+	// 	console.log(jobTitle);
+	//////////	// this.authService.applidStudentData(companyUid)
+		// this.getStudentCVdata = this.db.object('/students-CV/' + this.afAuth.auth.currentUser.uid);
+		// this.getStudentCVdata.subscribe((data) => {
+		// 	console.log(data)
+		// 	this.studentProfileData = data;
+	///////////		// debugger;
+	//////////		// this.appliedStudentData.push(data);
+	////////////		// console.log(this.appliedStudentData);
+			// this.appliedStudentDB = this.db.list('/jobsByCompanies', { preserveSnapshot: true });
+			// this.appliedStudentDB.subscribe((data) => {
+			// 	console.log(data);
+			// 	for (let i = 0; i < data.length; i++) {
+			// 		console.log(data[i]);
+			// 		for (let a in data[i]) {
+			// 			this.jobsByCompaniesData = data[i][a]
+			// 			console.log('1', data[i][a]);
+			// 			this.companyData = data[i][a];
+			// 			console.log(this.companyObject)
+			// 		}
+			// 	}
+
+
+
+			// });
+
+		////////////	//setTimeout(() => {
+			// this.appliedStudentDB2 = this.db.list("/appliedByStudent");
+			// this.studentProfileData.id = jobTitle;
+		////////	// this.studentProfileData.appliedCompanyEmail = this.companyObject;
+		////////	// this.
+			// console.log(this.studentProfileData);
+			// this.appliedStudentDB.push(this.studentProfileData)
+
+			/////  //}, 3000)
+
+		// })
+
+
+	///////	// this.authService.applidStudentData(this.appliedStudentData)
+	///////	// this.applyForJob.emit(this.appliedStudentData)
+	///////	// console.log(this.getStudentCVdata)
+	// }
 
 	signOut() {
 

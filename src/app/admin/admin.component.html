@@ -24,7 +24,7 @@
 		  Student Name : {{stdList.userEmail }}
 		  <md-card-actions>
 				<button color="primary" md-button>Details</button>
-				<button color="warn" md-button >Block</button>
+				<button color="warn" md-button (click)="removeStudent(stdList.userEmail)">Remove</button>
 			</md-card-actions>
 	</md-card-content>
   </md-card>
