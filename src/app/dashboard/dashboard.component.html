@@ -42,7 +42,9 @@
 		{{showComp | json}}
 	</div> -->
 	 <!-- <pre>fooooooooooooooo {{showComp | json}}</pre> -->
-	<button md-raised-button color="primary" (click)="apply(showComp.jobTitle,showComp.companyUid)">Apply</button>
+	<button md-raised-button color="primary"  (click)="apply(showComp.jobTitle,showComp.companyUid)">Apply</button>
+	<!-- <button md-raised-button color="primary" *ngIf="isApplied">Applied</button> -->
+	
 
 	<button md-raised-button (click)="details(i,showComp)">Details</button>
 

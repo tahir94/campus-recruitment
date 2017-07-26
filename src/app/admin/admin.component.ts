@@ -39,8 +39,10 @@ export class AdminComponent implements OnInit {
 
 		this.studensList
 			.subscribe(snapshots => {
-
+				this.companysArray = [];
+				this.studentsArray = [];
 				snapshots.forEach(snapshot => {
+					
 					console.log(snapshot.key);
 					this.companyType = snapshot.val().type;
 					this.studentType = snapshot.val().type
@@ -50,6 +52,7 @@ export class AdminComponent implements OnInit {
 
 					}
 					else if (this.companyType == 'company') {
+						
 						this.companysArray.push(snapshot.val());
 						console.log(this.companysArray);
 
@@ -74,8 +77,11 @@ export class AdminComponent implements OnInit {
 		this.accessUsersNode = this.db.list('/users', { preserveSnapshot: true });
 		this.accessUsersNode
 			.subscribe(snapshots => {
-				this.studentsArray = [];
+				//this.companysArray = [];
+				//this.studentsArray = [];
+
 				snapshots.forEach(snapshot => {
+					
 					console.log(snapshot.key);
 					console.log(snapshot.val());
 					this.studentUidInUsersNode = snapshot.key;
@@ -84,7 +90,7 @@ export class AdminComponent implements OnInit {
 					if (snapshot.val().type == 'student') {
 						console.log(snapshot.val());
 						if (snapshot.val().userEmail == studentEmail) {
-							// this.accessUsersNode.remove(snapshot.key)
+							this.accessUsersNode.remove(snapshot.key)
 							console.log('remove student key !');
 
 						}
@@ -101,6 +107,7 @@ export class AdminComponent implements OnInit {
 		this.studentsCV_node = this.db.list('/students-CV', { preserveSnapshot: true });
 		this.studentsCV_node
 			.subscribe(snapshots => {
+				
 				snapshots.forEach(snapshot => {
 					console.log(snapshot.key);
 					console.log(this.studentUidInUsersNode)
@@ -113,7 +120,7 @@ export class AdminComponent implements OnInit {
 	// 					// console.log(this.studentUidInUsersNode);
 
 
-						// this.studentsCV_node.remove(snapshot.key)
+						this.studentsCV_node.remove(snapshot.key)
 					}
 				});
 			})
@@ -124,20 +131,20 @@ export class AdminComponent implements OnInit {
 		this.companyCompare = this.db.list('/users', { preserveSnapshot: true });
 		this.companyCompare
 			.subscribe(snapshots => {
-				this.companysArray = [];
+				//this.companysArray = [];
 				snapshots.forEach(snapshot => {
 					console.log(snapshot.key);
 					this.companyUserKey = snapshot.key;
 					console.log(this.companyUserKey);
 
 					this.removeAppliedStudentKey(this.companyUserKey);
-					this.removejobsByCompanies(this.companyUserKey)
+					// this.removejobsByCompanies(this.companyUserKey)
 					console.log(snapshot.val().type);
 					if (snapshot.val().type == 'company') {
 						console.log(snapshot.val())
 						if (snapshot.val().CompanyEmail == companyEmail) {
 							console.log('you are on the right way !');
-							// this.companyCompare.remove(snapshot.key)
+							this.companyCompare.remove(snapshot.key)
 						}
 						else {
 							console.log('wrong !');
@@ -184,7 +191,7 @@ export class AdminComponent implements OnInit {
 		this.accessjobByCompaniesUid = this.db.list('/jobsByCompanies', { preserveSnapshot: true });
 		this.accessjobByCompaniesUid
 			.subscribe(snapshots => {
-				this.companysArray = [];
+				 //this.companysArray = [];
 				snapshots.forEach(snapshot => {
 					console.log(snapshot.key);
 					console.log(snapshot.val());
@@ -201,7 +208,7 @@ export class AdminComponent implements OnInit {
 
 						console.log('remove key');
 
-						// this.accessjobByCompaniesUid.remove(ApplicantsKey)
+					 this.accessjobByCompaniesUid.remove(ApplicantsKey)
 					}
 
 

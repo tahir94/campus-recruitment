@@ -113,6 +113,10 @@ export class CompanyDashboardComponent implements OnInit {
 
 	}
 	viewCandidates(title) {
+		this.studentCV_Arr = [];
+		//console.log(title);
+		//console.log(this.arr);
+
 		this.appState = 'showCV'
 		// get company key
 		this.getCompanyKey = this.db.object('jobsByCompanies', { preserveSnapshot: true });
@@ -140,16 +144,43 @@ export class CompanyDashboardComponent implements OnInit {
 				console.log(this.companyKey)
 				console.log(snapshot.val());
 				this.studentUidInApplicants = snapshot.val()
-				if (title == snapshot.val().id) {
-					alert('keys are match ! ');
-					this.arr.push(snapshot.val())
-					console.log(this.arr)
+				console.log('title', title);
+				console.log('id', snapshot.val().jobTitle);
+				if (title == snapshot.val().jobTitle) {
+					// alert('keys are match ! ');
+					//this.arr.push(snapshot.val())
+					this.fetchStudentCV = this.db.list('/students-CV', { preserveSnapshot: true });
+					this.fetchStudentCV
+						.subscribe(cvdata => {
+							this.studentCV_Arr = [];
+							cvdata.forEach(element => {
+								console.log(element.key);
+								console.log(snapshot.val());
+
+								this.studentCVUid = element.key;
+								this.studentCV_Val = element.val();
+								console.log( snapshot.val().studentUid);
+
+								if (this.studentCVUid == snapshot.val().studentUid) {
+									// alert('students are match !')
+									console.log(this.studentCV_Val);
+									this.studentCV_Arr.push(this.studentCV_Val)
+
+								}
+								console.log(snapshot.val());
+
+
+							});
+
+
+						});
+					//console.log(this.arr)
 
 				}
 				// else if (title != snapshot.val().id){
 				// 	alert("keys not match!")
 				// }
-				this.inApplyStdCompKey.push(snapshot.val().id);
+				this.inApplyStdCompKey.push(snapshot.val().jobTitle);
 			})
 			console.log(this.companyKey);
 			console.log(this.inApplyStdCompKey);
@@ -159,30 +190,7 @@ export class CompanyDashboardComponent implements OnInit {
 
 		//now getting student's cv
 
-		this.fetchStudentCV = this.db.list('/students-CV', { preserveSnapshot: true });
-		this.fetchStudentCV
-			.subscribe(snapshots => {
-				snapshots.forEach(snapshot => {
-					console.log(snapshot.key);
-					console.log(snapshot.val());
-					
-					this.studentCVUid = snapshot.key;
-					this.studentCV_Val = snapshot.val();
-					console.log(this.studentUidInApplicants);
-					
-					if (this.studentCVUid == this.studentUidInApplicants.studentUid) {
-						// alert('students are match !')
-						console.log(this.studentCV_Val);
-						this.studentCV_Arr.push(this.studentCV_Val)
-							
-					}
-					console.log(snapshot.val());
 
-
-				});
-
-
-			});
 
 
 
@@ -201,6 +209,9 @@ export class CompanyDashboardComponent implements OnInit {
 	back() {
 		this.appState = "default";
 
+	}
+	signOut() {
+		this.authService.signOut()
 	}
 
 }
@@ -336,9 +347,7 @@ viewAllCandidates(index, key) {
 
 
 	}
-	signOut() {
-		this.authService.signOut()
-	}
+	
 	clicked(index, key) {
 		console.log('index', index);
 		console.log('key', key)

@@ -44,7 +44,8 @@
 			<input mdInput placeholder="Preferred Industry">
 		</md-input-container> -->
 	 <div style="text-align:center">
-		<button md-raised-button color="primary" (click)="submit()">Submit</button>
+		<button md-raised-button color="primary" (click)="submit()" *ngIf="isSubmit">Submit</button>
+		<button md-raised-button color="primary" (click)="submit()" *ngIf="isSubmitDisabled" [disabled]= true >Submit</button>
 	</div> 
 
 </form>

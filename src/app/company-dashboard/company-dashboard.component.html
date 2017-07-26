@@ -38,52 +38,80 @@
 
 </table> -->
 <div *ngIf="appState == 'default'">
-<table  class="table table-striped">
-	<tr>
-		<th style="padding : 10px" *ngFor="let th of tableHeader">{{th}}</th>
-		<!-- <th>Job Title</th> -->
-		<!-- <th>Total Applicants</th> -->
-		<!-- <th>Veiw All Candidates</th> -->
-	</tr>
-	<td>
-		<tr *ngFor="let a of companyDataArray">
-			<th style="position: relative;left: 80px;">{{a.jobTitle}}</th>
-			 <th style="position: relative;left: 175px;">{{a.job_description}}</th> 
-			
-			
-			<button md-raised-button color="primary" style="position: relative;left: 260px;"  (click)="viewCandidates(a.jobTitle)">view Candidates</button>
-		    
+	<table class="table table-striped">
+		<tr>
+			<th style="padding : 10px" *ngFor="let th of tableHeader">{{th}}</th>
+			<!-- <th>Job Title</th> -->
+			<!-- <th>Total Applicants</th> -->
+			<!-- <th>Veiw All Candidates</th> -->
 		</tr>
-		
-		<!-- <tr *ngFor="let job of jobData;let i  = index">
+		<td>
+			<tr *ngFor="let a of companyDataArray">
+
+				<th style="position: relative;left: 80px;">{{a.jobTitle}}</th>
+				<th style="position: relative;left: 175px;">{{a.job_description}}</th>
+
+
+				<button md-raised-button color="primary" style="position: relative;left: 260px;" (click)="viewCandidates(a.jobTitle)">view Candidates</button>
+
+			</tr>
+
+			<!-- <tr *ngFor="let job of jobData;let i  = index">
 			{{job | json}}
 			<pre>prreeeeeee : {{job | json}}</pre> 
 			<button class="btn btn-default" role="button" (click)="viewAllCandidates(i,job.$key)">View All Candidates</button>
 		</tr> -->
-		<!-- <td>hello td 2</td> -->
+			<!-- <td>hello td 2</td> -->
 
-	</td>
+		</td>
 
 
 
-	<td>
-		<tr></tr>
-	</td>
-	<!-- <td>
+		<td>
+			<tr></tr>
+		</td>
+		<!-- <td>
 		 <tr><button class="btn btn-default" role="button" (click)="viewAllCandidates(myJobs.$key)">View All Candidates</button></tr>
 	</td> -->
-</table>
+	</table>
 </div>
 
 
-
 <div *ngIf="appState == 'showCV'">
-  <ul>
+
+	<button (click)="back()">
+<i class="material-icons">arrow_back</i>
+</button>
+
+	<!-- <ul>
 	  <li *ngFor="let a of studentCV_Arr">
            {{a | json}}
 	  </li>
-  </ul>
-<button (click)="back()">Back</button>
+  </ul> -->
+	<md-card  *ngFor="let a of studentCV_Arr">
+
+		<md-card-content>
+		Student CNIC :{{a.CNIC}}  
+		</md-card-content>
+
+		<md-card-content>	
+         Student Full Name : {{a.fullName}}
+		</md-card-content>
+		<md-card-content>	
+        Student : gender : {{a.gender}}
+		</md-card-content>
+		<md-card-content>	
+         Student Mobile : {{a.mobile}}
+		</md-card-content>
+		<md-card-content>	
+         Student Preferred Industry : {{a.preferredIndustry}}
+		</md-card-content>
+		
+	</md-card>
+
+
+	<!-- <button (click)="back()">Back</button> -->
+
 </div>
 
 
