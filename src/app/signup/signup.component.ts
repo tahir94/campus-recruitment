@@ -19,19 +19,18 @@ b;
   ngOnInit() {
     
     this.signupForm = this.fb.group({
-      'userEmail'    : '',
-	  'userPassword' : '',
-	  'userName'     : ''
+      'userEmail'    : [null,Validators.required],
+	  'userPassword' : [null,Validators.required],
+	  'userName'     : [null,Validators.required]
     })
   }
 
   signupData(){
-	//   console.log('value.username ',value.name)
+	
     console.log(this.signupForm.value)
     this.b = this.authService.emailSignUp(this.signupForm.value)
     console.log(this.b);
-    // console.log(value.email);
-	// console.log(value.password);
+  
 	
    
   }

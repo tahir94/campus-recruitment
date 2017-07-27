@@ -28,10 +28,6 @@ export class AdminComponent implements OnInit {
 	studentsCV_node: FirebaseListObservable<any>;
 	constructor(private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase, ) {
 
-		// this.adminUid = this.afAuth.auth.currentUser.uid;
-		// if (this.adminUid === 'ZDgEXsMZ2welZUf0am13n8lBLXI3') { 
-
-		// }
 
 
 		//getting students list
@@ -77,8 +73,7 @@ export class AdminComponent implements OnInit {
 		this.accessUsersNode = this.db.list('/users', { preserveSnapshot: true });
 		this.accessUsersNode
 			.subscribe(snapshots => {
-				//this.companysArray = [];
-				//this.studentsArray = [];
+			
 
 				snapshots.forEach(snapshot => {
 					
@@ -117,7 +112,6 @@ export class AdminComponent implements OnInit {
     //                     console.log(key);
 						
 
-	// 					// console.log(this.studentUidInUsersNode);
 
 
 						this.studentsCV_node.remove(snapshot.key)
@@ -131,14 +125,14 @@ export class AdminComponent implements OnInit {
 		this.companyCompare = this.db.list('/users', { preserveSnapshot: true });
 		this.companyCompare
 			.subscribe(snapshots => {
-				//this.companysArray = [];
+				
 				snapshots.forEach(snapshot => {
 					console.log(snapshot.key);
 					this.companyUserKey = snapshot.key;
 					console.log(this.companyUserKey);
 
 					this.removeAppliedStudentKey(this.companyUserKey);
-					// this.removejobsByCompanies(this.companyUserKey)
+				
 					console.log(snapshot.val().type);
 					if (snapshot.val().type == 'company') {
 						console.log(snapshot.val())
@@ -179,7 +173,7 @@ export class AdminComponent implements OnInit {
 
 						console.log(snapshot.val().comapanyUid);
 
-						// this.accessAppliedByStudent.remove(snapshot.key);
+						this.accessAppliedByStudent.remove(snapshot.key);
 					}
 
 				});
@@ -191,7 +185,7 @@ export class AdminComponent implements OnInit {
 		this.accessjobByCompaniesUid = this.db.list('/jobsByCompanies', { preserveSnapshot: true });
 		this.accessjobByCompaniesUid
 			.subscribe(snapshots => {
-				 //this.companysArray = [];
+				
 				snapshots.forEach(snapshot => {
 					console.log(snapshot.key);
 					console.log(snapshot.val());

@@ -11,8 +11,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class StudentCVComponent implements OnInit {
 
-	// genderOptions;
-	// preferredIndustryOptions;
 	studentCV_Data;
 	isSubmit = true;
 	isSubmitDisabled;
@@ -33,7 +31,7 @@ export class StudentCVComponent implements OnInit {
 		{ value: 'Mass Communication', viewValue: 'Mass Communication' },
 
 	]
-	constructor(private afAuth : AngularFireAuth,private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder) {
+	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder) {
 		this.checkedStudentCV_data = this.db.list('students-CV', { preserveSnapshot: true });
 		this.checkedStudentCV_data.subscribe(snapshots => {
 			snapshots.forEach(snapshot => {
@@ -41,15 +39,15 @@ export class StudentCVComponent implements OnInit {
 				this.studentCV_key = snapshot.key;
 				console.log(snapshot.val());
 				console.log(this.afAuth.auth.currentUser.uid);
-				
-				if(this.studentCV_key  == this.afAuth.auth.currentUser.uid){
+
+				if (this.studentCV_key == this.afAuth.auth.currentUser.uid) {
 					console.log(snapshot.key)
-					
-				  this.isSubmit = false;
-				  this.isSubmitDisabled = true;
-				//   alert('you already submitted CV !')
+
+					this.isSubmit = false;
+					this.isSubmitDisabled = true;
+
 				}
-								
+
 			});
 		})
 	}
@@ -67,10 +65,6 @@ export class StudentCVComponent implements OnInit {
 	}
 	submit() {
 		this.authService.studentServiceData(this.studentCV_Form.value);
-
-		// console.log('abcd')
-		// this.studentCV_Data = this.studentCV_Form.value;
-		//  console.log(this.studentCV_Data)
 	}
 
 
@@ -79,8 +73,4 @@ export class StudentCVComponent implements OnInit {
 	}
 
 
-
-	// data() {
-	// 	// console.log(this.preferredIndustryOptions);
-	// }
 }

@@ -18,12 +18,6 @@ export class CompanyDashboardComponent implements OnInit {
 	jobskeys = [];
 	appliedStuKeys = [];
 	forCompareCompanyId = [];
-
-
-
-
-
-	//
 	companyKey;
 	inApplyStdCompKey = [];
 	companyDataArray = [];
@@ -43,10 +37,7 @@ export class CompanyDashboardComponent implements OnInit {
 	constructor(private location: Location, private router: Router, private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
 		this.getList();
 		this.showJobs();
-
-
-
-	}
+}
 
 	ngOnInit() { }
 	showJobs() {
@@ -97,9 +88,7 @@ export class CompanyDashboardComponent implements OnInit {
 								console.log("this.jobskeys " + this.jobskeys);
 								this.appliedStuKeys.forEach((id, i) => {
 									console.log(id);
-									// if(this.jobskeys[i] == this.forCompareCompanyId[i]){
-									// 	console.log("compared jobs ids = " + id);
-									// }
+
 								})
 
 							})
@@ -114,10 +103,7 @@ export class CompanyDashboardComponent implements OnInit {
 	}
 	viewCandidates(title) {
 		this.studentCV_Arr = [];
-		//console.log(title);
-		//console.log(this.arr);
-
-		this.appState = 'showCV'
+        this.appState = 'showCV'
 		// get company key
 		this.getCompanyKey = this.db.object('jobsByCompanies', { preserveSnapshot: true });
 		this.getCompanyKey.subscribe(snapshots => {
@@ -147,8 +133,7 @@ export class CompanyDashboardComponent implements OnInit {
 				console.log('title', title);
 				console.log('id', snapshot.val().jobTitle);
 				if (title == snapshot.val().jobTitle) {
-					// alert('keys are match ! ');
-					//this.arr.push(snapshot.val())
+
 					this.fetchStudentCV = this.db.list('/students-CV', { preserveSnapshot: true });
 					this.fetchStudentCV
 						.subscribe(cvdata => {
@@ -159,10 +144,12 @@ export class CompanyDashboardComponent implements OnInit {
 
 								this.studentCVUid = element.key;
 								this.studentCV_Val = element.val();
-								console.log( snapshot.val().studentUid);
+								console.log(snapshot.val().studentUid);
+								console.log(this.studentCVUid);
+
 
 								if (this.studentCVUid == snapshot.val().studentUid) {
-									// alert('students are match !')
+
 									console.log(this.studentCV_Val);
 									this.studentCV_Arr.push(this.studentCV_Val)
 
@@ -174,38 +161,18 @@ export class CompanyDashboardComponent implements OnInit {
 
 
 						});
-					//console.log(this.arr)
+
 
 				}
-				// else if (title != snapshot.val().id){
-				// 	alert("keys not match!")
-				// }
+
 				this.inApplyStdCompKey.push(snapshot.val().jobTitle);
 			})
 			console.log(this.companyKey);
 			console.log(this.inApplyStdCompKey);
 		});
-		console.log('outside 1', this.companyKey);
-		console.log('outside 2', this.inApplyStdCompKey);
+	
 
-		//now getting student's cv
-
-
-
-
-
-
-
-		// if(this.companyKey == this.inApplyStdCompKey){
-		// 	alert("id's are match ")
-		// }
-		// else {
-		// 	alert("sorry ! id's are not match ! ")
-		// }
-
-
-
-	}
+}
 	back() {
 		this.appState = "default";
 
@@ -217,149 +184,3 @@ export class CompanyDashboardComponent implements OnInit {
 }
 
 
-
-/*
-export class CompanyDashboardComponent implements OnInit {
-	item: FirebaseObjectObservable<any>;
-	postJobData;
-	postJobArray = [];
-	postArray = [];
-	jobTitles = [];
-	jobData = [];
-	showStudentData = [];
-	demo;
-	keys;
-	flag;
-	h = 0;
-	studentData;
-	items: FirebaseListObservable<any>;
-	getAppliedStudentData: FirebaseListObservable<any>;
-
-	constructor(private authService: AuthService, private afAuth: AngularFireAuth, private db: AngularFireDatabase, ) {
-		this.item = this.db.object('/jobsByCompanies/' + this.afAuth.auth.currentUser.uid, { preserveSnapshot: true });
-		this.item.subscribe((data) => {
-
-			console.log(data.key);
-			console.log('data.val()',data.val());
-			data.val().jobTitle;
-			data.val().jobTitle;
-			this.postJobData = data.val();
-			console.log("1", this.postJobData)
-			this.postJobArray.push(this.postJobData);
-			for (let i = 0; i < this.postJobArray.length; i++) {
-				console.log("2", this.postJobArray[i]);
-				for (let a in this.postJobArray[i]){
-					console.log("3", this.postJobArray[i][a]);
-					this.postArray = this.postJobArray[i][a];
-					console.log("4", this.postArray)
-					if("appliedByStudent" in this.postJobArray[i][a])
-					this.jobData.push(this.postJobArray[i][a].appliedByStudent);
-					console.log("5", this.jobData);
-				}
-			}
-			console.log(this.postJobArray)
-
-		});
-		console.log(this.authService.appliedStudentsArray);
-
-
-		//set key in applied student node
-		this.items = this.db.list('jobsByCompanies');
-		this.items.subscribe((data) => {
-			console.log(data);
-			this.flag = 0;
-
-			for (let i = 0; i < data.length; i++) {
-				for (let k in data[i]) {
-					for (let l in data[i][k]) {
-						while (this.flag < 1) {
-							console.log(data[i]);
-							this.keys = Object.keys(data[i][k][l]);
-							console.log(data[i][k][l]);
-							this.studentData = data[i][k][l]
-							console.log(this.keys);
-							this.studentData.$key = this.keys;
-							this.h++
-							this.flag = 1;
-						}
-
-					}
-
-				}
-
-				// for(let a in data[i]){
-				// 	console.log(data[i][a].appliedByStudent)
-				// 	this.flag = 0;
-				// 	while(this.flag < 1){
-				// 		data[i][a].appliedByStudent.$key = this.keys[this.h];
-				// 		console.log(data[i][a].appliedByStudent.$key)
-				// 		this.h++
-				// 			this.flag = 1;
-				// 	}
-				// 		this.showStudentData.push(data[i][a]);
-				// 		console.log(this.showStudentData)
-
-				// }
-
-			}
-
-			
-			// this.showStudentData.push(this.studentData);
-			this.jobData.push(this.studentData)
-			console.log(this.jobData);
-			console.log(this.jobData.length);
-			for (let i = 0; i < this.jobData.length; i++) {
-				console.log(this.jobData[i]);
-			}
-
-		})
-	}
-
-	ngOnInit() {
-	}
-/*
-	viewAllCandidates() {
-		this.getAppliedStudentData = this.db.list('jobsByCompanies/', {preserveSnapshot: true});
-		this.getAppliedStudentData.subscribe((data) => {
-			console.log(data);
-			for (let i = 0; i < data.length; i++) {
-				console.log(data[i]);
-				for (let a in data[i]) {
-					console.log(data[i][a].appliedByStudent.id)
-				}
-			}
-		})
-
-
-	}
-
-
-viewAllCandidates(index, key) {
-	console.log(index);
-	
-		
-	this.getAppliedStudentData = this.db.list('jobsByCompanies/', {preserveSnapshot: true});
-		this.getAppliedStudentData.subscribe((data) => {
-			data.forEach(element => {
-				console.log(element);
-			});	
-		})
-
-
-	}
-	
-	clicked(index, key) {
-		console.log('index', index);
-		console.log('key', key)
-	}
-	// showAppliedStudentData(){
-
-	// }
-
-	// demoOfOutput(outputData){
-	// 	console.log(outputData)
-	// }
-
-}
-
-*/

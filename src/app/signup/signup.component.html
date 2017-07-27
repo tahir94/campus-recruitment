@@ -1,36 +1,34 @@
- <md-toolbar style="background : #607D8B">
-   <span  style="color : white; text-align : center ">Campus Recruitment</span>
-     <span class="example-fill-remaining-space"></span>
-<!--<button md-raised-button color="primary" routerLink="/app-signup">Signup</button>-->
- </md-toolbar>
+<md-toolbar style="background : #607D8B">
+	<span style="color : white; text-align : center ">Campus Recruitment</span>
+	<span class="example-fill-remaining-space"></span>
+</md-toolbar>
 <h1 style="text-align : center;font-family : sans-serifl;color : #607D8B">SIGN UP</h1>
 
 
 
 <md-card style="width: 30%;  margin: 0 auto;
-    text-align: left;
-   ">
-  <form [formGroup]="signupForm">
-  <div style="text-align:center" > 
-<md-input-container>
-  <input mdInput placeholder="user name" [formControl]="signupForm.controls['userName']" [(ngModel)]="user.name">
-</md-input-container>
-</div>
+    text-align: left;">
+	<form [formGroup]="signupForm">
+		<div style="text-align:center">
+			<md-input-container>
+				<input mdInput placeholder="user name" [formControl]="signupForm.controls['userName']" [(ngModel)]="user.name">
+			</md-input-container>
+		</div>
 
-  <div style="text-align:center" > 
-<md-input-container>
-  <input mdInput placeholder="user email" [formControl]="signupForm.controls['userEmail']" [(ngModel)]="user.email">
-</md-input-container>
-</div>
+		<div style="text-align:center">
+			<md-input-container>
+				<input mdInput placeholder="user email" [formControl]="signupForm.controls['userEmail']" [(ngModel)]="user.email">
+			</md-input-container>
+		</div>
 
-<div style="text-align:center">
+		<div style="text-align:center">
 
-<md-input-container>
-  <input mdInput placeholder="user password" [formControl]="signupForm.controls['userPassword']" [(ngModel)]="user.password">
-</md-input-container>
-</div>
-<div style="text-align:center">
-   <button md-raised-button color="primary" (click)="signupData(user)" >Signup</button>
-</div>
-</form>
-</md-card> 
+			<md-input-container>
+				<input mdInput placeholder="user password" [formControl]="signupForm.controls['userPassword']" [(ngModel)]="user.password">
+			</md-input-container>
+		</div>
+		<div style="text-align:center">
+			<button md-raised-button color="primary" (click)="signupData(user)">Signup</button>
+		</div>
+	</form>
+</md-card>

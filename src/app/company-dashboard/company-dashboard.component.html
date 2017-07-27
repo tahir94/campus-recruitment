@@ -12,38 +12,12 @@
 	</div>
 </md-toolbar>
 
-<!-- <table>
-	<tr>
-		<th>Job Title</th>
-		<th>Total Applicants</th>
-		<th>view All Candidates</th>
-	</tr>
 
-
-	<td>
-		<tr *ngFor="let job of jobData">{{job}}
-
-		</tr>
-
-
-	</td>
-	<td>
-
-	</td>
-	<td>
-		<button (click)="viewCandidates()">View All Candidates</button>
-	</td>
-
-
-
-</table> -->
 <div *ngIf="appState == 'default'">
 	<table class="table table-striped">
 		<tr>
 			<th style="padding : 10px" *ngFor="let th of tableHeader">{{th}}</th>
-			<!-- <th>Job Title</th> -->
-			<!-- <th>Total Applicants</th> -->
-			<!-- <th>Veiw All Candidates</th> -->
+
 		</tr>
 		<td>
 			<tr *ngFor="let a of companyDataArray">
@@ -55,24 +29,8 @@
 				<button md-raised-button color="primary" style="position: relative;left: 260px;" (click)="viewCandidates(a.jobTitle)">view Candidates</button>
 
 			</tr>
-
-			<!-- <tr *ngFor="let job of jobData;let i  = index">
-			{{job | json}}
-			<pre>prreeeeeee : {{job | json}}</pre> 
-			<button class="btn btn-default" role="button" (click)="viewAllCandidates(i,job.$key)">View All Candidates</button>
-		</tr> -->
-			<!-- <td>hello td 2</td> -->
-
 		</td>
 
-
-
-		<td>
-			<tr></tr>
-		</td>
-		<!-- <td>
-		 <tr><button class="btn btn-default" role="button" (click)="viewAllCandidates(myJobs.$key)">View All Candidates</button></tr>
-	</td> -->
 	</table>
 </div>
 
@@ -83,54 +41,26 @@
 <i class="material-icons">arrow_back</i>
 </button>
 
-	<!-- <ul>
-	  <li *ngFor="let a of studentCV_Arr">
-           {{a | json}}
-	  </li>
-  </ul> -->
-	<md-card  *ngFor="let a of studentCV_Arr">
+
+	<md-card *ngFor="let a of studentCV_Arr">
 
 		<md-card-content>
-		Student CNIC :{{a.CNIC}}  
+			Student CNIC :{{a.CNIC}}
 		</md-card-content>
 
-		<md-card-content>	
-         Student Full Name : {{a.fullName}}
+		<md-card-content>
+			Student Full Name : {{a.fullName}}
 		</md-card-content>
-		<md-card-content>	
-        Student : gender : {{a.gender}}
+		<md-card-content>
+			Student gender : {{a.gender}}
 		</md-card-content>
-		<md-card-content>	
-         Student Mobile : {{a.mobile}}
+		<md-card-content>
+			Student Mobile : {{a.mobile}}
 		</md-card-content>
-		<md-card-content>	
-         Student Preferred Industry : {{a.preferredIndustry}}
+		<md-card-content>
+			Student Preferred Industry : {{a.preferredIndustry}}
 		</md-card-content>
-		
+
 	</md-card>
 
-
-	<!-- <button (click)="back()">Back</button> -->
-
 </div>
-
-
-
-
-<!-- <pre>{{a | json}}</pre> -->
-<!-- <ul><li *ngFor="let a of showStudentData; let i=index">
-	{{a.$key | json}}
- <button (click)="clicked(i,a.$key)">clickkkkk</button>
-</li></ul> -->
-
-
-<!-- <app-dashboard></app-dashboard> -->
-<!-- <app-dashboard (applyForJob)="demoOfOutput($event)"></app-dashboard>  -->
-<!-- <button (click)="">please click Me</button> -->
-<!-- <button (applyForJob)="demoOfOutput($event)"> please click </button>  -->
-
-<!-- <ul>
-	<li *ngFor="let a of postArray">{{a}}
-		
-	</li>
-</ul> -->

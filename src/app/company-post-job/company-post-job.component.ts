@@ -59,7 +59,7 @@ export class CompanyPostJobComponent implements OnInit {
 			'careerLevelOptions' : '',
 			'jobTypeOptions': '',
 			'salary': '',
-			// '$key':''
+			
 
 
 		})
@@ -71,7 +71,7 @@ export class CompanyPostJobComponent implements OnInit {
 		this.postJobForm.value.companyUid = this.companyUid;                         
 		console.log(this.postJobForm.value)
 		this.db.list('/jobsByCompanies/' +this.afAuth.auth.currentUser.uid).push(this.postJobForm.value)
-		// this.newJob++
+
 	}
 
 	signOut(){

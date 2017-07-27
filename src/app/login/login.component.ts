@@ -14,37 +14,27 @@ import { Router } from "@angular/router";
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css']
-	//   providers : [AuthService]
+
 })
 export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	loginAuth;
 	firebaseToken;
-	c;
 
 
-	constructor(private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder, private router: Router) {
-		// this.authService.demo()
-
-
-	}
+	constructor(private db: AngularFireDatabase, private authService: AuthService, private fb: FormBuilder, private router: Router) { }
 
 	ngOnInit() {
 		this.loginForm = this.fb.group({
 			'userEmail': "com33@c.com",
 			'userPassword': "000000"
 		});
-		//   console.log(this.loginForm.value)
+
 	}
 
 	login() {
 
 		this.loginAuth = this.authService.emailLogin(this.loginForm.value.userEmail, this.loginForm.value.userPassword)
-
-	
-
-		console.log(this.loginAuth)
-
 
 	}
 
